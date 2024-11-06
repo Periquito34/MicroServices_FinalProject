@@ -1,0 +1,75 @@
+Dependecias de Spring Boot
+
+Spring Web: Proporciona las herramientas para desarrollar aplicaciones web en Spring. Incluye soporte para controladores RESTful, servlets, y la funcionalidad para crear APIs web. Es esencial para construir aplicaciones web en el entorno de Spring.
+
+Spring Dev Tools: Es un conjunto de herramientas de desarrollo que mejora la productividad. Proporciona características como recarga automática de aplicaciones y configuración optimizada para desarrollo. Esto facilita la prueba de cambios de forma rápida durante el desarrollo.
+
+Spring Data JPA: Simplifica la interacción con bases de datos mediante JPA (Java Persistence API). Proporciona un conjunto de repositorios predefinidos y abstracciones para realizar operaciones CRUD en bases de datos relacionales sin necesidad de escribir código SQL manualmente.
+
+MySQL Driver: Es el controlador de MySQL que permite que Spring Boot se conecte a una base de datos MySQL. Facilita la comunicación entre la aplicación y la base de datos, permitiendo ejecutar consultas y transacciones.
+
+Decoradores de Spring Boot:
+
+@Entity: Indica que esta clase es una entidad JPA, lo que significa que se mapeará a una tabla en la base de datos. Cada instancia de esta clase representa una fila en la tabla.
+
+@Table: Especifica que esta entidad se asociará a una tabla en la base de datos. Aquí, se usa sin parámetros, por lo que JPA tomará el nombre de la tabla como el nombre de la clase (Alumno en este caso). Sin embargo, puedes personalizar el nombre de la tabla pasándole el parámetro name, por ejemplo: @Table(name = "nombre_tabla").
+
+@Id: Define el campo id como la clave primaria de la entidad Alumno. Este valor es único para cada fila de la tabla en la base de datos.
+
+@GeneratedValue(strategy = GenerationType.IDENTITY): Indica que el valor de la clave primaria (id) será generado automáticamente por la base de datos, utilizando la estrategia IDENTITY. En esta estrategia, el valor de la clave se genera en la base de datos, generalmente usando un campo autoincremental.
+
+@Column(name = "create_at"): Especifica detalles adicionales para el mapeo del campo createAt. En este caso, el nombre de la columna en la base de datos será create_at en lugar de createAt, que es el nombre del atributo de la clase.
+
+@Temporal(TemporalType.TIMESTAMP): Se utiliza para especificar el tipo de dato de tiempo que será almacenado en la base de datos. TemporalType.TIMESTAMP indica que se almacenará tanto la fecha como la hora.
+
+@PrePersist: Define un método de ciclo de vida de JPA que se ejecutará justo antes de que la entidad se guarde en la base de datos por primera vez. Aquí, el método prePersist() asigna la fecha actual al campo createAt antes de insertar el registro en la base de datos.
+
+@Transational: La anotación @Transactional en Spring se utiliza para gestionar transacciones de manera declarativa, lo que asegura que un conjunto de operaciones de base de datos se ejecuten de forma atómica y consistente. Esto significa que todas las operaciones dentro de una transacción deben completarse con éxito; si ocurre algún error,
+se realiza un rollback (reversión de todas las operaciones realizadas), manteniendo la base de datos en un estado coherente.
+
+Definicion de conceptos:
+
+a. ResponseEntity<?>
+ResponseEntity<?> es una clase de Spring utilizada para construir respuestas HTTP de manera flexible y detallada.
+Permite definir no solo el cuerpo de la respuesta, sino también el estado HTTP (como 200 OK, 404 Not Found, etc.) y los encabezados.
+
+Cuerpo (<?>): Puede contener cualquier tipo de objeto (especificado mediante generics) que se convertirá automáticamente a JSON o XML para la respuesta HTTP.
+Estado HTTP: Permite especificar el código de estado que se enviará con la respuesta.
+Encabezados: Permite agregar encabezados personalizados.
+
+b. Optional
+Optional es una clase de Java (no exclusiva de Spring) que se utiliza para manejar valores que pueden o no estar presentes,
+evitando el uso de null y reduciendo el riesgo de excepciones NullPointerException.
+Es útil en Spring para representar resultados de búsquedas en bases de datos u otras operaciones donde un resultado puede ser opcional.
+
+Métodos comunes:
+
+isPresent(): Verifica si un valor está presente.
+ifPresent(Consumer<? super T> action): Ejecuta una acción si el valor está presente.
+orElse(T other): Devuelve el valor si está presente, o un valor alternativo si no.
+map(Function<? super T,? extends U> mapper): Transforma el valor si está presente, de lo contrario devuelve un Optional vacío.
+
+c. @PathVariable
+@PathVariable es una anotación en Spring que se utiliza para obtener datos de la URL de una solicitud HTTP y mapearlos a parámetros de un método de controlador.
+}Es comúnmente usada para extraer identificadores u otros datos directamente desde la URL, lo que permite hacer rutas RESTful.
+
+Ques es un servidor Eureka como parte de SpringCloud?
+Eureka es un servidor de descubrimiento de servicios que forma parte de Spring Cloud. Su principal función es facilitar la comunicación y el descubrimiento de servicios en arquitecturas de microservicios.
+A continuación, se detallan sus características y funcionalidades principales:
+
+Descubrimiento de Servicios: Eureka permite que las aplicaciones se registren en el servidor Eureka al iniciar y que otras aplicaciones descubran estas instancias registradas.
+Esto es útil para que los servicios puedan encontrar y comunicarse entre sí sin necesidad de tener las direcciones de red estáticas.
+
+Registro y Desregistro: Los servicios que se ejecutan en una infraestructura de microservicios pueden registrarse en Eureka al iniciar.
+Si un servicio se detiene, se desregistra automáticamente, lo que ayuda a mantener un registro actualizado de las instancias de servicio disponibles.
+
+Carga Balanceada: Al usar Eureka, se pueden implementar patrones de carga balanceada en la comunicación entre microservicios.
+Al hacer solicitudes, un cliente puede obtener una lista de instancias disponibles y decidir cuál utilizar, permitiendo una distribución equilibrada de la carga.
+
+Alta Disponibilidad: Eureka proporciona una alta disponibilidad mediante replicación.
+Puedes tener múltiples instancias de Eureka para garantizar que el servicio de descubrimiento siga disponible, incluso si una instancia falla.
+
+Integración con otros componentes de Spring Cloud: Eureka se integra fácilmente con otros componentes de Spring Cloud, como Spring Cloud LoadBalancer, que proporciona capacidades adicionales de balanceo de carga.
+
+Interfaz de Usuario: Eureka ofrece una interfaz web donde puedes ver los servicios registrados, sus estados y otra información útil.
+
