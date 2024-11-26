@@ -1,6 +1,7 @@
 package com.andresrico.usuario.service;
 
-import com.andresrico.usuario.entity.Alumno;
+import models.entity.Alumno;
+
 import com.andresrico.usuario.repository.AlumnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
